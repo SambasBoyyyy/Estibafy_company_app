@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "295482206606",
+    "firebase_url": "https://estibafy-company-app-default-rtdb.firebaseio.com",
+    "project_id": "estibafy-company-app",
+    "storage_bucket": "estibafy-company-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:295482206606:android:ee51ee0d1f17b6584cdcdf",
+        "android_client_info": {
+          "package_name": "com.estibafy.estibafy_company_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcRJpGVFlsfdzd_w2b0NIg8l18IUezsiE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
