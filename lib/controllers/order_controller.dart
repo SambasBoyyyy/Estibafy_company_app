@@ -7,7 +7,7 @@ import '../models/company_jobs_model.dart';
 class OrderController extends GetxController {
   Rx<CompanyJobsModel> companyJobs = CompanyJobsModel().obs;
 
-  final ref = FirebaseDatabase.instance.ref('company').child('jobaccept');
+  final ref = FirebaseDatabase.instance.ref('company').child('job');
 
   getOrders() {
     API().getRequest(endPoint: "/company/jobs").then((value) {
@@ -23,12 +23,14 @@ class OrderController extends GetxController {
       'status': 'accept',
       'job_id': jobId,
     };
+    print(path);
     API()
         .postRequest(endPoint: '/company/job/accept', body: body, dataType: 'form-data')
         .then((value) => {
               if (value != null)
                 {
-                  if (value.statusCode == 200) {ref.child(path!).remove()}
+
+                  if (value.statusCode == 200) {ref.remove()}
                 }
             });
   }

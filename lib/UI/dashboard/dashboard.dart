@@ -27,7 +27,7 @@ class _DashboardState extends State<Dashboard> {
 
   final authController = Get.put(AuthController());
 
-  final ref = FirebaseDatabase.instance.ref('company').child('jobaccept');
+  final ref = FirebaseDatabase.instance.ref('company').child('job');
 
   @override
   void initState() {
@@ -190,7 +190,7 @@ class _DashboardState extends State<Dashboard> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 1.0,
-                height: 150,
+                height: 200,
                 child: StreamBuilder(
                     stream: ref.onValue,
                     builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
@@ -206,24 +206,38 @@ class _DashboardState extends State<Dashboard> {
 
                             List<dynamic> list = [];
                             list.clear();
+                            print(data.values);
                             list = data.values.toList();
 
+                                 print(snapshot.data?.snapshot.children.length,);
                             List<dynamic> keys = data.keys.toList();
 
                             return ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: list.length,
+                                itemCount: 1,//snapshot.data?.snapshot.children.length,
                                 itemBuilder: (context, index) {
                                   return DashboardJobCard(
-                                    customerName: '${list[index]['data']['job']['name']}',
-                                    customerAddress: '${list[index]['data']['job']['address']}',
-                                    jobAmount: '${list[index]['data']['checkout']['total']}',
-                                    totalHelpers:
-                                    '${list[index]['data']['checkout']['total_helpers']}',
-                                    date: '${list[index]['data']['checkout']['created_at']}',
-                                    jobId: list[index]['data']['job']['id'],
-                                    reference: keys[index],
+                                    customerName: '${list[index]['name']}',
+                                                                        customerAddress: '${list[index]['address']}',
+                                                                        jobAmount: '${list[1]['total']}',
+                                                                        totalHelpers:
+                                                                        '${list[1]['total_helpers']}',
+                                                                        date: '${list[1]['created_at']}',
+                                                                        jobId: list[index]['id'],
+                                                                        reference: keys[index],
                                   );
+
+                                  //DashboardJobCard(
+                                  //                                     customerName: '${list[index]['data']['job']['name']}',
+                                  //                                     customerAddress: '${list[index]['data']['job']['address']}',
+                                  //                                     jobAmount: '${list[index]['data']['checkout']['total']}',
+                                  //                                     totalHelpers:
+                                  //                                     '${list[index]['data']['checkout']['total_helpers']}',
+                                  //                                     date: '${list[index]['data']['checkout']['created_at']}',
+                                  //                                     jobId: list[index]['data']['job']['id'],
+                                  //                                     reference: keys[index],
+                                  //                                   );
+
                                 });
                           }
                         }else{

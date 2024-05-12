@@ -64,6 +64,7 @@ class AuthController extends GetxController {
         if (value.data['status'] == 200) {
           authLocal = await SharedPreferences.getInstance();
           try {
+            print(value.data);
             userProfile.value = UserModel.fromJson(value.data);
             authLocal.setString("user", jsonEncode(userProfile.value));
             authLocal.setBool("loggedIn", false);

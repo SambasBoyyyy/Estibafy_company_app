@@ -54,23 +54,24 @@ class HelperController extends GetxController {
       "name": helperName.text,
       "email": helperEmail.text,
       "mobile": helperMobile.text,
-      "password": helperPassword.text,
-      "password_confirm": helperConfirmPassword.text,
+      "password": '123456',
+      "password_confirm": '123456',//helperConfirmPassword.text,
       "latitude": "",
       "longitude": "",
       "apartment": "2",
       "city": helperCity.text,
       "country": helperCountry.text,
       "province": helperState.text,
-      "image": "",
-      "company_id": authController.userProfile.value.data?.user?.company?.userId ?? 0
+      // "image": "",
+      // "company_id": authController.userProfile.value.data?.user?.company?.userId ?? 0
     };
 
     API()
-        .postRequest(endPoint: 'company/helper-add', body: body, dataType: 'form-data')
+        .postRequest(endPoint: '/company/helper-add', body: body, dataType: 'form-data')
         .then((value) {
       if (value != null) {
         ShowMessage().showMessage("${helperName.text} registered as a Helper");
+        Get.to(AllHelpersScreen());
       }
     });
   }
@@ -90,6 +91,7 @@ class HelperController extends GetxController {
       if(value != null){
         if(value.statusCode == 200){
           ShowMessage().showMessage("Helpers Added");
+
         }
       }
     });

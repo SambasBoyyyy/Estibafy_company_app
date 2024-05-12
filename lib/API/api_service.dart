@@ -26,7 +26,7 @@ class API {
       var response;
 
       dio.options.headers["Authorization"] = getTokenHeader();
-
+      print(body);
       FormData? formData;
 
       if (dataType == "form-data") {
@@ -34,20 +34,26 @@ class API {
           Dio dioApi = Dio();
           dioApi.options.headers['content-type'] = 'multipart/form-data';
           formData = FormData.fromMap(body);
+
           print(formData);
           response = await dioApi.post(baseUrl + endPoint!, data: formData);
         } else {
           formData = FormData.fromMap(body);
+          print('not image form data');
           print(formData);
+          print(baseUrl + endPoint!);
           response = await dio.post(baseUrl + endPoint!, data: formData);
+          print(response);
         }
       } else {
         print(body);
         response = await dio.post(baseUrl + endPoint!, queryParameters: body);
+        print(response);
       }
 
       if (response.statusCode == 200) {
         EasyLoading.dismiss();
+        print(response);
         return response;
       } else {
         ShowMessage().showErrorMessage("${response['message']}");
