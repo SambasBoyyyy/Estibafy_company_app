@@ -20,7 +20,7 @@ class OrderController extends GetxController {
 
   acceptJob({int? jobId, String? path}) {
     var body = {
-      'status': 'accept',
+      'status': 'accepted',
       'job_id': jobId,
     };
     print(path);
@@ -37,7 +37,7 @@ class OrderController extends GetxController {
 
   int getListLength(int orderCategory) {
     return orderCategory == 0
-        ? (companyJobs.value.data?.inreview?.length ?? 1)
+        ? (companyJobs.value.data?.accepted?.length ?? 1)
         : orderCategory == 1
             ? (companyJobs.value.data?.inprogress?.length ?? 1)
             : orderCategory == 2
@@ -47,7 +47,7 @@ class OrderController extends GetxController {
 
   JobData? getSelectedList(int index, int orderCategory) {
     return orderCategory == 0
-        ? companyJobs.value.data!.inreview![index]
+        ? companyJobs.value.data!.accepted![index]
         : orderCategory == 1
             ? companyJobs.value.data!.inprogress![index]
             : orderCategory == 2

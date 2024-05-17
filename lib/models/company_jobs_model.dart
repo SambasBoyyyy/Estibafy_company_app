@@ -76,11 +76,11 @@ class Data {
   );
 
   Map<String, dynamic> toJson() => {
-    "complete": complete == null ? [] : List<dynamic>.from(complete!.map((x) => x)),
-    "inprogress": inprogress == null ? [] : List<dynamic>.from(inprogress!.map((x) => x)),
-    "pending": pending == null ? [] : List<dynamic>.from(pending!.map((x) => x)),
-    "declined": declined == null ? [] : List<dynamic>.from(declined!.map((x) => x)),
-    "inreview": inreview == null ? [] : List<dynamic>.from(inreview!.map((x) => x)),
+    "complete": complete == null ? [] : List<dynamic>.from(complete!.map((x) => x.toJson())),
+    "inprogress": inprogress == null ? [] : List<dynamic>.from(inprogress!.map((x) => x.toJson())),
+    "pending": pending == null ? [] : List<dynamic>.from(pending!.map((x) => x.toJson())),
+    "declined": declined == null ? [] : List<dynamic>.from(declined!.map((x) => x.toJson())),
+    "inreview": inreview == null ? [] : List<dynamic>.from(inreview!.map((x) => x.toJson())),
     "accepted": accepted == null ? [] : List<dynamic>.from(accepted!.map((x) => x.toJson())),
   };
 }

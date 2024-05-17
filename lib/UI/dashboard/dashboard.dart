@@ -202,43 +202,48 @@ class _DashboardState extends State<Dashboard> {
                             return const Center(child: Text("Waiting for New Job"));
                           } else {
 
-                            Map<dynamic, dynamic> data = snapshot.data!.snapshot.value as Map;
+                            if(snapshot.data!.snapshot.value!=null){
+                              Map<dynamic, dynamic> data = snapshot.data!.snapshot.value as Map;
+                              List<dynamic> list = [];
+                              list.clear();
+                              print(data.values);
+                              list = data.values.toList();
 
-                            List<dynamic> list = [];
-                            list.clear();
-                            print(data.values);
-                            list = data.values.toList();
+                              print(snapshot.data?.snapshot.children.length,);
+                              List<dynamic> keys = data.keys.toList();
 
-                                 print(snapshot.data?.snapshot.children.length,);
-                            List<dynamic> keys = data.keys.toList();
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 1,//snapshot.data?.snapshot.children.length,
+                                  itemBuilder: (context, index) {
+                                    return DashboardJobCard(
+                                      customerName: '${list[index]['name']}',
+                                      customerAddress: '${list[index]['address']}',
+                                      jobAmount: '${list[1]['total']}',
+                                      totalHelpers:
+                                      '${list[1]['total_helpers']}',
+                                      date: '${list[1]['created_at']}',
+                                      jobId: list[index]['id'],
+                                      reference: keys[index],
+                                    );
 
-                            return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 1,//snapshot.data?.snapshot.children.length,
-                                itemBuilder: (context, index) {
-                                  return DashboardJobCard(
-                                    customerName: '${list[index]['name']}',
-                                                                        customerAddress: '${list[index]['address']}',
-                                                                        jobAmount: '${list[1]['total']}',
-                                                                        totalHelpers:
-                                                                        '${list[1]['total_helpers']}',
-                                                                        date: '${list[1]['created_at']}',
-                                                                        jobId: list[index]['id'],
-                                                                        reference: keys[index],
-                                  );
+                                    //DashboardJobCard(
+                                    //                                     customerName: '${list[index]['data']['job']['name']}',
+                                    //                                     customerAddress: '${list[index]['data']['job']['address']}',
+                                    //                                     jobAmount: '${list[index]['data']['checkout']['total']}',
+                                    //                                     totalHelpers:
+                                    //                                     '${list[index]['data']['checkout']['total_helpers']}',
+                                    //                                     date: '${list[index]['data']['checkout']['created_at']}',
+                                    //                                     jobId: list[index]['data']['job']['id'],
+                                    //                                     reference: keys[index],
+                                    //                                   );
 
-                                  //DashboardJobCard(
-                                  //                                     customerName: '${list[index]['data']['job']['name']}',
-                                  //                                     customerAddress: '${list[index]['data']['job']['address']}',
-                                  //                                     jobAmount: '${list[index]['data']['checkout']['total']}',
-                                  //                                     totalHelpers:
-                                  //                                     '${list[index]['data']['checkout']['total_helpers']}',
-                                  //                                     date: '${list[index]['data']['checkout']['created_at']}',
-                                  //                                     jobId: list[index]['data']['job']['id'],
-                                  //                                     reference: keys[index],
-                                  //                                   );
+                                  });
+                            }
+                            else{
+                              return const Center(child: Text("Waiting for New Job"));
+                            }
 
-                                });
                           }
                         }else{
                           return const Center(child: Text("Waiting for New Job"));

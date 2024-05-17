@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:estibafy_company_app/API/api_service.dart';
+import 'package:estibafy_company_app/UI/Orders/orders_screen.dart';
 import 'package:estibafy_company_app/UI/widgets/show_message.dart';
 import 'package:estibafy_company_app/controllers/auth_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../UI/Orders/order_detail_screen.dart';
 import '../UI/helpers/all_helpers.dart';
 import '../models/company_helpers.dart';
 
@@ -83,22 +87,22 @@ class HelperController extends GetxController {
     }
     var body = {
       "status" : "accepted",
-      "job_id" : jobId,
-      "helpers" : helperIds
+      "job_id": jobId.toString(),
+      "helpers": jsonEncode(helperIds)
     };
 
     API().postRequest(endPoint: '/company/helpers/assign',body: body,dataType: "form-data").then((value) {
       if(value != null){
         if(value.statusCode == 200){
           ShowMessage().showMessage("Helpers Added");
-
         }
       }
     });
   }
 
   deleteHelper(int? helperId){
-    API().postRequest(endPoint: '/company/helper-delete/$helperId',dataType: "Nill").then((value) {
+    print(helperId);
+    API().getRequest(endPoint: '/company/helper-delete/$helperId').then((value) {
       if(value != null){
         if(value.statusCode == 200){
           ShowMessage().showMessage("Helper Deleted");
