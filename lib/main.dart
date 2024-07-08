@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:developer' as dev;
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:estibafy_company_app/UI/splash_screen/splash_screen.dart';
@@ -30,11 +31,12 @@ void main() async{
   SharedPreferences authLocal = await SharedPreferences.getInstance();
   bool newUser = (authLocal.getBool('loggedIn') ?? true);
   if (newUser == false) {
+    dev.log('in main.dart');
     final authController = Get.put(AuthController());
     var data = jsonDecode(authLocal.getString("user").toString());
     authController.ifAlreadyLoggedIn(data);
   }
-
+  Get.put(AuthController());
   runApp( Main(isNewUser: newUser,));
 }
 

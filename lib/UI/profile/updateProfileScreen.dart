@@ -7,9 +7,12 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import '../../components/components.dart';
 import '../widgets/backButton.dart';
 
-class UpdateProfileScreen extends StatelessWidget {
-   UpdateProfileScreen({Key? key}) : super(key: key);
+class UpdateProfileScreen extends StatefulWidget {
+  @override
+  _UpdateProfileScreenState createState() => _UpdateProfileScreenState();
+}
 
+class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final authController = Get.put(AuthController());
 
   @override
@@ -61,13 +64,12 @@ class UpdateProfileScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text("Company Details", style: titleTextStyle.copyWith(
-                      fontSize: 14
+                        fontSize: 14
                     )),
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: authController.companyName,
-                    onChanged: (val) {},
                     decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide.none,
@@ -112,7 +114,6 @@ class UpdateProfileScreen extends StatelessWidget {
                   ),
                   TextFormField(
                     controller: authController.companyAddress,
-                    onChanged: (val) {},
                     decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide.none,
@@ -143,7 +144,6 @@ class UpdateProfileScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: authController.nameControllerSignup,
-                    onChanged: (val) {},
                     decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide.none,
@@ -152,7 +152,7 @@ class UpdateProfileScreen extends StatelessWidget {
                           borderSide: BorderSide(color: AppColors.primaryColor),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       prefixIcon: Icon(
-                        Icons.location_city,
+                        Icons.person,
                         color: AppColors.primaryColor,
                       ),
                       filled: true,
@@ -166,7 +166,6 @@ class UpdateProfileScreen extends StatelessWidget {
                   ),
                   TextFormField(
                     controller: authController.emailControllerSignup,
-                    onChanged: (val) {},
                     decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide.none,
@@ -175,7 +174,7 @@ class UpdateProfileScreen extends StatelessWidget {
                           borderSide: BorderSide(color: AppColors.primaryColor),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       prefixIcon: Icon(
-                        Icons.directions_railway_rounded,
+                        Icons.email,
                         color: AppColors.primaryColor,
                       ),
                       filled: true,
@@ -189,7 +188,6 @@ class UpdateProfileScreen extends StatelessWidget {
                   ),
                   TextFormField(
                     controller: authController.contactControllerSignup,
-                    onChanged: (val) {},
                     decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide.none,
@@ -208,6 +206,52 @@ class UpdateProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFormField(
+                    controller: authController.passwordControllerSignup,
+                    decoration: const InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.primaryColor),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: AppColors.primaryColor,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: "Password",
+                      labelStyle: TextStyle(color: AppColors.primaryColor),
+                    ),
+                    obscureText: true,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFormField(
+                    controller: authController.confirmPasswordControllerSignup,
+                    decoration: const InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.primaryColor),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        color: AppColors.primaryColor,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: "Confirm Password",
+                      labelStyle: TextStyle(color: AppColors.primaryColor),
+                    ),
+                    obscureText: true,
+                  ),
+                  const SizedBox(
                     height: 20.0,
                   ),
                   ElevatedButton(
@@ -216,7 +260,9 @@ class UpdateProfileScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.0)),
                           backgroundColor: AppColors.primaryColor,
                           padding: const EdgeInsets.symmetric(horizontal: 131, vertical: 20)),
-                      onPressed: () {},
+                      onPressed: () {
+                        authController.updateProfile();
+                      },
                       child: const Text(
                         'Update Profile',
                         style: TextStyle(fontSize: 17),

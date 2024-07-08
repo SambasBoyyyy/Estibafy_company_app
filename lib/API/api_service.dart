@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart' as cont;
+import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../UI/widgets/show_message.dart';
 import '../controllers/auth_controller.dart';
@@ -24,8 +27,7 @@ class API {
       Dio dio = Dio();
 
       var response;
-
-      dio.options.headers["Authorization"] = getTokenHeader();
+      dio.options.headers["Authorization"] =  getTokenHeader();
       print(body);
       FormData?  formData;
 
@@ -87,8 +89,10 @@ class API {
   Future<Response?> getRequest({String? endPoint, var body}) async {
     try {
       Dio dio = Dio();
+        if (endPoint !=  "/login"){
+          dio.options.headers["Authorization"] =  getTokenHeader();
+        }
 
-      dio.options.headers["Authorization"] = getTokenHeader();
       print(baseUrl);
       var response = await dio.get(
         baseUrl + endPoint!,
@@ -164,9 +168,12 @@ class API {
     }
     return response;
   }
-
-  String getTokenHeader() {
-    AuthController user = cont.Get.put(AuthController());
+  String getTokenHeader()  {
+    final user = cont.Get.put(AuthController());
+    // AuthController user = cont.Get.find<AuthController>();
+    // SharedPreferences authLocal = await SharedPreferences.getInstance();
+    // user.ifAlreadyLoggedIn(jsonDecode(authLocal.getString("user").toString())) ;
+    print("User Profile Data: ${user.userProfile.value.data?.user?.accessToken}");
     String token = "Bearer ${user.userProfile.value.data?.user?.accessToken ?? "--"}";
     dev.log(token);
     return token;

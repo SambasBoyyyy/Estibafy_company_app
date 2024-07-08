@@ -15,7 +15,8 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -35,10 +36,14 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _animationController.forward();
 
     Timer(const Duration(seconds: 3), () {
-      if(widget.isNewUser){Get.to(LoginScreen());}
-      else{Get.to(MainNav());}
+      if (widget.isNewUser) {
+        // Get.to(LoginScreen());
+        Get.to(() => LoginScreen());
+      } else {
+        // Get.to(MainNav());
+        Get.to(() => MainNav());
+      }
 
-      ;
     });
   }
 

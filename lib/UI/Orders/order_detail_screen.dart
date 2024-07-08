@@ -11,9 +11,10 @@ import '../../controllers/order_controller.dart';
 import '../../models/company_jobs_model.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
-  const OrderDetailsScreen({Key? key, this.jobData}) : super(key: key);
+  const OrderDetailsScreen({Key? key, this.jobData, this.jobStatus}) : super(key: key);
 
   final JobData? jobData;
+  final String? jobStatus;
 
   @override
   _OrderDetailsScreenState createState() => _OrderDetailsScreenState();
@@ -73,80 +74,85 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               const SizedBox(
                 height: 20.0,
               ),
-              Row(
-                children: [
-                  Text("Job Helpers", style: nameTextStyle.copyWith(fontSize: 16)),
-                  Spacer(),
-                  Text(
-                      '${jobData?.job?.jobHelpers?.length ?? "0"}/${jobData?.totalHelpers?.toString() ?? "0"}'),
-                  Spacer(),
-                  MaterialButton(
-                    height: 30,
-                    minWidth: 20,
-                    color: AppColors.primaryColor,
-                    onPressed: () {
-                      Get.to(AssignHelperScreen(
-                        totalHelper: jobData?.totalHelpers ?? 0,
-                        jobId: jobData?.jobId ?? 0,
-                      ));
-                    },
-                    child: const Text(
-                      "+ Add",
-                      style: TextStyle(color: Colors.white),
+              if (widget.jobStatus == 'accepted') ...[
+                Row(
+                  children: [
+                    Text("Job Helpers", style: nameTextStyle.copyWith(fontSize: 16)),
+                    Spacer(),
+                    Text(
+                        '${jobData?.job?.jobHelpers?.length ?? "0"}/${jobData?.totalHelpers?.toString() ?? "0"}'
                     ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              jobData != null
-                  ? jobData!.job!.jobHelpers!.isEmpty
-                  ? Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Get.to(AssignHelperScreen(
-                        totalHelper: jobData?.totalHelpers ?? 0,
-                        jobId: jobData?.jobId ?? 0,
-                      ));
-                    },
-                    child: Container(
-                      width: 100,
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: const BoxDecoration(color: AppColors.primaryColor),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Helpers",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ],
+                    Spacer(),
+                    MaterialButton(
+                      height: 30,
+                      minWidth: 20,
+                      color: AppColors.primaryColor,
+                      onPressed: () {
+                        Get.to(AssignHelperScreen(
+                          totalHelper: jobData?.totalHelpers ?? 0,
+                          jobId: jobData?.jobId ?? 0,
+                        ));
+                      },
+                      child: const Text(
+                        "+ Add",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  const Text(
-                    "Please Add Helper \nFor Starting the Job",
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                ],
-              )
-                  : ListView.builder(
+                  ],
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                jobData != null
+                    ? jobData!.job!.jobHelpers!.isEmpty
+                    ? Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.to(AssignHelperScreen(
+                          totalHelper: jobData?.totalHelpers ?? 0,
+                          jobId: jobData?.jobId ?? 0,
+                        ));
+                      },
+                      child: Container(
+                        width: 100,
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: const BoxDecoration(color: AppColors.primaryColor),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Helpers",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    const Text(
+                      "Please Add Helper \nFor Starting the Job",
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                )
+                    : ListView.builder(
                   shrinkWrap: true,
                   itemCount: jobData!.job!.jobHelpers?.length ?? 0,
                   itemBuilder: (context, index) {
                     return JobHelperWidget(
-                        helper: jobData!.job!.jobHelpers?[index] ?? JobHelper());
-                  })
-                  : const Center(child: Text("Please Add Helper For Starting\n the Job")),
+                      helper: jobData!.job!.jobHelpers?[index] ?? JobHelper(),
+                    );
+                  },
+                )
+                    : const Center(child: Text("Please Add Helper For Starting\n the Job")),
+              ],
             ],
           ),
         ),

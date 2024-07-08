@@ -1,3 +1,4 @@
+import 'package:estibafy_company_app/UI/navBar.dart';
 import 'package:estibafy_company_app/UI/widgets/dashboard_helpers_widget.dart';
 import 'package:estibafy_company_app/controllers/auth_controller.dart';
 import 'package:estibafy_company_app/controllers/helper_controller.dart';
@@ -6,10 +7,13 @@ import 'package:estibafy_company_app/theme/colors.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import '../../components/components.dart';
+import '../../controllers/tabController.dart';
 import '../../models/company_helpers.dart';
+import '../Orders/orders_screen.dart';
 import '../widgets/Orders Widgets/dashboardJobCard.dart';
 import '../widgets/draawer.dart';
 
@@ -107,14 +111,18 @@ class _DashboardState extends State<Dashboard> {
                               height: 5.0,
                             ),
                             Obx(
-                              () => Text(
-                                authController
-                                        .userProfile.value.data?.user?.company?.companyAddress ??
-                                    "--",
-                                style: subtitleTextStyle.copyWith(
-                                  color: Colors.white,
+                              () => Container(
+                                width: MediaQuery.of(context).size.width * 0.6, // 80% of the screen width
+                                child: Text(
+                                  authController.userProfile.value.data?.user?.company?.companyAddress ?? "--",
+                                  style: subtitleTextStyle.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                   maxLines: 1, // Limit to one line
+                                   overflow: TextOverflow.ellipsis, // Truncate with ellipsis if too long
                                 ),
                               ),
+
                             )
                           ],
                         ),
@@ -262,48 +270,54 @@ class _DashboardState extends State<Dashboard> {
               const SizedBox(
                 height: 8,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.7),
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      Obx(
-                        () => jobWidget("Accepted Jobs",
-                            orderController.companyJobs.value.data?.accepted?.length ?? 0),
-                      ),
-                      const Divider(
-                        color: Colors.white,
-                      ),
-                      Obx(
-                        () => jobWidget("In-Progress Jobs",
-                            orderController.companyJobs.value.data?.inprogress?.length ?? 0),
-                      ),
-                      const Divider(
-                        color: Colors.white,
-                      ),
-                      Obx(
-                        () => jobWidget("Completed Jobs",
-                            orderController.companyJobs.value.data?.complete?.length ?? 0),
-                      ),
-                      const Divider(
-                        color: Colors.white,
-                      ),
-                      Obx(
-                        () => jobWidget("Declined Jobs",
-                            orderController.companyJobs.value.data?.declined?.length ?? 0),
-                      ),
-                      const Divider(
-                        color: Colors.white,
-                      ),
-                      Obx(
-                        () => jobWidget("Cancelled Jobs",
-                            orderController.companyJobs.value.data?.declined?.length ?? 0),
-                      ),
-                    ],
+              GestureDetector(
+                onTap: (){
+                  final tabController = Get.find<TabNavController>();
+                  tabController.tabNavBarIndex.value = 1;
+                } ,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: [
+                        Obx(
+                          () => jobWidget("Accepted Jobs",
+                              orderController.companyJobs.value.data?.accepted?.length ?? 0),
+                        ),
+                        const Divider(
+                          color: Colors.white,
+                        ),
+                        Obx(
+                          () => jobWidget("In-Progress Jobs",
+                              orderController.companyJobs.value.data?.inprogress?.length ?? 0),
+                        ),
+                        const Divider(
+                          color: Colors.white,
+                        ),
+                        Obx(
+                          () => jobWidget("Completed Jobs",
+                              orderController.companyJobs.value.data?.complete?.length ?? 0),
+                        ),
+                        const Divider(
+                          color: Colors.white,
+                        ),
+                        Obx(
+                          () => jobWidget("Declined Jobs",
+                              orderController.companyJobs.value.data?.declined?.length ?? 0),
+                        ),
+                        const Divider(
+                          color: Colors.white,
+                        ),
+                        Obx(
+                          () => jobWidget("Cancelled Jobs",
+                              orderController.companyJobs.value.data?.declined?.length ?? 0),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

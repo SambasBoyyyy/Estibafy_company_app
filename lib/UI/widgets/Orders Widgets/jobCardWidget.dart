@@ -22,6 +22,7 @@ class JobCardWidget extends StatelessWidget {
         onTap: () {
           Get.to(OrderDetailsScreen(
             jobData: job,
+            jobStatus: jobStatus
           ));
         },
         child: Container(
@@ -56,11 +57,12 @@ class JobCardWidget extends StatelessWidget {
                       ),
                       Text(
                         job.job?.address ?? "--",
-                        style: simpleTextStyle.copyWith(fontSize: 15, color: AppColors.greyColor),
+                        style: simpleTextStyle.copyWith(fontSize: 11, color: AppColors.greyColor),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(flex: 2,),
                   Text(
                     "${job.job?.id ?? 0}",
                     style: simpleTextStyle,
@@ -226,14 +228,7 @@ class JobCardWidget extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                "Completed",
-                                style: simpleTextStyle.copyWith(color: AppColors.whiteColor),
-                              ),
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Text(
-                                "3/5",
+                                "Processing",
                                 style: simpleTextStyle.copyWith(color: AppColors.whiteColor),
                               ),
                             ],

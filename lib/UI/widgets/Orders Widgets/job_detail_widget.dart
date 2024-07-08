@@ -127,7 +127,7 @@ class JobDetailsWidget extends StatelessWidget {
               Text(
                 job?.job?.address ?? "--",
                 style: normalTextStyle.copyWith(
-                    fontSize: 18
+                    fontSize: 12
                 ),
               ),
             ],

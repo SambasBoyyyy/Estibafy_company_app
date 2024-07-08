@@ -67,9 +67,11 @@ class AuthController extends GetxController {
             print(value.data);
             userProfile.value = UserModel.fromJson(value.data);
             authLocal.setString("user", jsonEncode(userProfile.value));
+            userProfile.value = UserModel.fromJson(jsonDecode(authLocal.getString("user").toString())) ;
             authLocal.setBool("loggedIn", false);
-            userProfile.refresh();
-            Get.offAll(() => MainNav());
+            //userProfile.refresh();
+            print("Updated userProfile: ${userProfile.value.data?.user?.accessToken}"); // Ad
+            Get.off(() => MainNav());
           } catch (e) {
             log(e.toString());
           }
@@ -79,6 +81,37 @@ class AuthController extends GetxController {
       }
     });
   }
+
+
+  Future<void> updateProfile() async {
+    var body = {
+      "mobile": contactControllerSignup.text,
+      "name": nameControllerSignup.text,
+      "password": passwordControllerSignup.text,
+      "password_confirm": confirmPasswordControllerSignup.text,
+    };
+
+    EasyLoading.show(status: 'Updating...');
+    try {
+      final response = await API().postRequest(endPoint: "/usersUpdate", body: body, dataType: "json");
+      if (response != null && response.data['status'] == 200) {
+        // userProfile.value = UserModel.fromJson(response.data);
+        userProfile.value.data?.user?.name = nameControllerSignup.text;
+        userProfile.value.data?.user?.mobile = contactControllerSignup.text;
+        authLocal = await SharedPreferences.getInstance();
+        await authLocal.setString("user", jsonEncode(userProfile.value));
+        ShowMessage().showMessage("Profile updated successfully");
+        userProfile.refresh();
+      } else {
+        ShowMessage().showErrorMessage(response?.data['message'] ?? 'Update failed');
+      }
+    } catch (e) {
+      ShowMessage().showErrorMessage(e.toString());
+    } finally {
+      EasyLoading.dismiss();
+    }
+  }
+
 
   Future signup({File? image}) async {
     var value = await API().signUp(

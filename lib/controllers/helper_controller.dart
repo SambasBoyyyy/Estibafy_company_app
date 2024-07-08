@@ -86,7 +86,7 @@ class HelperController extends GetxController {
       helperIds.add(helper.id);
     }
     var body = {
-      "status" : "accepted",
+      "status" : "inprocess",
       "job_id": jobId.toString(),
       "helpers": jsonEncode(helperIds)
     };
@@ -94,7 +94,8 @@ class HelperController extends GetxController {
     API().postRequest(endPoint: '/company/helpers/assign',body: body,dataType: "form-data").then((value) {
       if(value != null){
         if(value.statusCode == 200){
-          ShowMessage().showMessage("Helpers Added");
+          var result = jsonDecode(value.data);
+          ShowMessage().showMessage(result);
         }
       }
     });

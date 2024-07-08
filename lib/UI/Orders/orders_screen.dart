@@ -32,6 +32,7 @@ class _JobsState extends State<Jobs> with SingleTickerProviderStateMixin {
       text: 'Cancelled',
     )
   ];
+  final status = const ["accepted","in-process", "Completed",'Cancelled'];
 
   @override
   void initState() {
@@ -94,7 +95,7 @@ class _JobsState extends State<Jobs> with SingleTickerProviderStateMixin {
                                 return JobCardWidget(
                                   job:
                                       orderController.getSelectedList(index, tabIndex) ?? JobData(),
-                                  jobStatus: 'accepted',
+                                  jobStatus: status[tabIndex],//'accepted',
                                 );
                               }),
                 ),

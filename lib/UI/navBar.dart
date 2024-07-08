@@ -1,4 +1,5 @@
 import 'package:estibafy_company_app/UI/Notification/notificationScreen.dart';
+import 'package:estibafy_company_app/UI/earning/my_earning.dart';
 import 'package:estibafy_company_app/UI/profile/profileScreen.dart';
 import 'package:estibafy_company_app/UI/widgets/draawer.dart';
 import 'package:estibafy_company_app/controllers/tabController.dart';
@@ -9,19 +10,19 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'Orders/orders_screen.dart';
 
-
 class MainNav extends StatelessWidget {
-   MainNav({Key? key}) : super(key: key);
+  MainNav({Key? key}) : super(key: key);
 
   final tabController = Get.put(TabNavController());
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 10),
-        child: GNav(
+        child: Obx(
+              () => GNav(
             rippleColor: AppColors.primaryColor, // tab button ripple color when pressed
             hoverColor: AppColors.primaryColor, // tab button hover color
             haptic: true, // haptic feedback
@@ -37,11 +38,11 @@ class MainNav extends StatelessWidget {
             iconSize: 30, // tab button icon size
             tabBackgroundColor: AppColors.primaryColor, // selected tab background color
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12), // navigation bar padding
-            onTabChange: (index){
+            selectedIndex: tabController.tabNavBarIndex.value, // Bind selected index
+            onTabChange: (index) {
               tabController.tabNavBarIndex.value = index;
             },
-
-            tabs: const[
+            tabs: const [
               GButton(
                 icon: Icons.home_outlined,
                 text: 'Dashboard',
@@ -53,26 +54,27 @@ class MainNav extends StatelessWidget {
                 textSize: 18,
               ),
               GButton(
-                icon: Icons.notifications_active_outlined,
-                text: 'Notification',
+                icon: Icons.monetization_on_outlined,
+                text: 'Earnings',
                 textSize: 18,
               ),
               GButton(
                 icon: Icons.person_outline_sharp,
                 text: 'Profile',
                 textSize: 18,
-              )
-            ]
+              ),
+            ],
+          ),
         ),
       ),
       body: Obx(
-          ()=> tabController.tabNavBarIndex.value == 0
-              ? ZoomDraawer()
-              : tabController.tabNavBarIndex.value == 1
-              ? Jobs()
-              : tabController.tabNavBarIndex.value == 2
-              ? NotificationScreen()
-              : ProfileScreen()
+            () => tabController.tabNavBarIndex.value == 0
+            ? ZoomDraawer()
+            : tabController.tabNavBarIndex.value == 1
+            ? Jobs()
+            : tabController.tabNavBarIndex.value == 2
+            ? MyEarnings()
+            : ProfileScreen(),
       ),
     );
   }
