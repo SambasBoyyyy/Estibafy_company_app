@@ -60,8 +60,10 @@ class _SplashScreenState extends State<SplashScreen>
       body: Center(
         child: ScaleTransition(
           scale: _animation,
-          child: FlutterLogo(
-            size: 200.0,
+          child:  Image.asset(
+            'assets/images/estibafyfulllogo.jpeg',
+            width: 200.0,
+            height: 200.0,
           ),
         ),
       ),

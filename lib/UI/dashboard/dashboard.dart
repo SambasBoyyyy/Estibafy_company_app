@@ -73,7 +73,7 @@ class _DashboardState extends State<Dashboard> {
                 height: 10.0,
               ),
               Container(
-                height: 180,
+                height: 120,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   color: AppColors.primaryColor,
@@ -128,61 +128,61 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    const Divider(
-                      color: Colors.white,
-                    ),
+                    // const SizedBox(
+                    //   height: 10.0,
+                    // ),
+                    // const Divider(
+                    //   color: Colors.white,
+                    // ),
                     const SizedBox(
                       height: 5.0,
                     ),
-                    const Row(
-                      children: [
-                        Text(
-                          "Earnings",
-                          style: TextStyle(fontSize: 10, color: Colors.white),
-                        ),
-                        Spacer(),
-                        Text(
-                          "Jobs",
-                          style: TextStyle(fontSize: 10, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 3.0,
-                    ),
-                    Row(
-                      children: [
-                        const Icon(
-                          CupertinoIcons.money_dollar,
-                          color: Colors.white,
-                        ),
-                        const Text(
-                          "345.56",
-                          style: TextStyle(fontSize: 14, color: Colors.white),
-                        ),
-                        const Spacer(),
-                        Container(
-                          width: 0.5,
-                          height: 22,
-                          color: Colors.white,
-                        ),
-                        const Spacer(),
-                        const Icon(
-                          Icons.cases_outlined,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(
-                          width: 5.0,
-                        ),
-                        const Text(
-                          "2345",
-                          style: TextStyle(fontSize: 14, color: Colors.white),
-                        ),
-                      ],
-                    ),
+                    // const Row(
+                    //   children: [
+                    //     Text(
+                    //       "Earnings",
+                    //       style: TextStyle(fontSize: 10, color: Colors.white),
+                    //     ),
+                    //     Spacer(),
+                    //     Text(
+                    //       "Jobs",
+                    //       style: TextStyle(fontSize: 10, color: Colors.white),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const SizedBox(
+                    //   height: 3.0,
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     const Icon(
+                    //       CupertinoIcons.money_dollar,
+                    //       color: Colors.white,
+                    //     ),
+                    //     const Text(
+                    //       "345.56",
+                    //       style: TextStyle(fontSize: 14, color: Colors.white),
+                    //     ),
+                    //     const Spacer(),
+                    //     Container(
+                    //       width: 0.5,
+                    //       height: 22,
+                    //       color: Colors.white,
+                    //     ),
+                    //     const Spacer(),
+                    //     const Icon(
+                    //       Icons.cases_outlined,
+                    //       color: Colors.white,
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 5.0,
+                    //     ),
+                    //     const Text(
+                    //       "2345",
+                    //       style: TextStyle(fontSize: 14, color: Colors.white),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),

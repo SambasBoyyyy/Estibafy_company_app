@@ -211,7 +211,7 @@ class JobCardWidget extends StatelessWidget {
                           Text(
                             job.job?.packageType ?? "--",
                             style: simpleTextStyle.copyWith(
-                              fontSize: 15,
+                              fontSize: 11,
                             ),
                           ),
                         ],
@@ -221,7 +221,7 @@ class JobCardWidget extends StatelessWidget {
                   Spacer(),
                   jobStatus == "in-process"
                       ? Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                               color: AppColors.greyColor),
@@ -229,7 +229,7 @@ class JobCardWidget extends StatelessWidget {
                             children: [
                               Text(
                                 "Processing",
-                                style: simpleTextStyle.copyWith(color: AppColors.whiteColor),
+                                style: normalTextStyle.copyWith(color: AppColors.whiteColor),
                               ),
                             ],
                           ),

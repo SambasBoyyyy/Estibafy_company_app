@@ -41,14 +41,14 @@ class DrawerMenu extends StatelessWidget {
                 // const Divider(color: AppColors.primaryColor,),
                 // DrawerWidget(title: "Payments", iconData: LineAwesomeIcons.wallet, onPress: (){},),
                 const Divider(color: AppColors.primaryColor,),
-                DrawerWidget(title: "Settings", iconData: LineAwesomeIcons.cog, onPress: (){},),
-                const Divider(color: AppColors.primaryColor,),
+                // DrawerWidget(title: "Settings", iconData: LineAwesomeIcons.cog, onPress: (){},),
+                // const Divider(color: AppColors.primaryColor,),
                 DrawerWidget(title: "Terms & Policies", iconData: LineAwesomeIcons.readme, onPress: (){
                   Get.to(TermsAndConditions());
                 },),
                 const Divider(color: AppColors.primaryColor,),
-                DrawerWidget(title: "About Us", iconData: LineAwesomeIcons.info, onPress: (){},),
-                const Divider(color: AppColors.primaryColor,),
+                // DrawerWidget(title: "About Us", iconData: LineAwesomeIcons.info, onPress: (){},),
+                // const Divider(color: AppColors.primaryColor,),
                 const SizedBox(
                   height: 10.0,
                 ),

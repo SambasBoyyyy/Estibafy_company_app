@@ -106,14 +106,14 @@ class JobDetailsWidget extends StatelessWidget {
                 children: [
                   const Icon(LineAwesomeIcons.box, size: 30,),
                   Text(job?.job?.container?.name ?? "--", style: simpleTextStyle.copyWith(
-                    fontSize: 18,
+                    fontSize: 16,
                   ),),
                   Spacer(),
                   const Icon(LineAwesomeIcons.truck_loading,size: 30,),
                   const SizedBox(width: 5.0,),
                   Text(job?.job?.packageType ?? "--", style: simpleTextStyle.copyWith(
-                    fontSize: 18,
-                  ),),
+                    fontSize: 12,
+                  )),
                 ],
               ),
             ),

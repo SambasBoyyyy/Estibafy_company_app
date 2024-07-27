@@ -72,9 +72,14 @@ class ProfileScreen extends StatelessWidget {
               //ProfileMenuWidget(title: "Settings", icon: LineAwesomeIcons.cog, onPress: () {}),
               // ProfileMenuWidget(
               //     title: "Payments Details", icon: LineAwesomeIcons.wallet, onPress: () {}),
+
+              ProfileMenuWidget(
+                  title: "Set Helper Rate", icon: LineAwesomeIcons.money_check, onPress: () {
+                Get.to(()=> AllHelpersScreen());
+              }),
               ProfileMenuWidget(
                   title: "Helper Management", icon: LineAwesomeIcons.user_check, onPress: () {
-                    Get.to(()=> AllHelpersScreen());
+                Get.to(()=> AllHelpersScreen());
               }),
               const Divider(),
               const SizedBox(height: 10),

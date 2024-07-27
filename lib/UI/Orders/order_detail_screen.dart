@@ -21,7 +21,17 @@ class OrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+
+
   JobData? get jobData => widget.jobData;
+  final orderController = Get.put(OrderController());
+
+
+  @override
+  void initState() {
+    orderController.getOrders();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
