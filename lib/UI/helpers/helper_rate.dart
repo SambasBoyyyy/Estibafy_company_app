@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HelperRate extends StatefulWidget {
   const HelperRate({super.key});
@@ -10,6 +11,6 @@ class HelperRate extends StatefulWidget {
 class _HelperRateState extends State<HelperRate> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp();
   }
 }
