@@ -7,6 +7,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../controllers/tabController.dart';
+import '../helpers/helper_rate.dart';
 import '../widgets/profileTileWidget.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -75,7 +76,7 @@ class ProfileScreen extends StatelessWidget {
 
               ProfileMenuWidget(
                   title: "Set Helper Rate", icon: LineAwesomeIcons.money_check, onPress: () {
-                Get.to(()=> AllHelpersScreen());
+                Get.to(()=> const HelperRate());
               }),
               ProfileMenuWidget(
                   title: "Helper Management", icon: LineAwesomeIcons.user_check, onPress: () {

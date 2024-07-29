@@ -80,26 +80,35 @@ class HelperController extends GetxController {
     });
   }
 
-  assignHelper({int? jobId}){
+  assignHelper({int? jobId}) {
     var helperIds = [];
-    for(var helper in assignHelpers){
+    for (var helper in assignHelpers) {
       helperIds.add(helper.id);
     }
     var body = {
-      "status" : "inprocess",
+      "status": "inprocess",
       "job_id": jobId.toString(),
       "helpers": jsonEncode(helperIds)
     };
 
-    API().postRequest(endPoint: '/company/helpers/assign',body: body,dataType: "form-data").then((value) {
-      if(value != null){
-        if(value.statusCode == 200){
-          var result = jsonDecode(value.data);
-          ShowMessage().showMessage(result);
+    API().postRequest(endPoint: '/company/helpers/assign', body: body, dataType: "form-data").then((value) {
+      if (value != null) {
+        if (value.statusCode == 200) {
+          var result = value.data;
+          if (result["msg"] == "One of helper Already added for this job") {
+            ShowMessage().showErrorMessage("A helper has already been added for this job.");
+          } else {
+            ShowMessage().showMessage(result["msg"]);
+          }
+        } else {
+          // Handle other status codes if needed
+          ShowMessage().showMessage("An unexpected error occurred: ${value.statusCode}");
         }
       }
     });
   }
+
+
 
   deleteHelper(int? helperId){
     print(helperId);

@@ -152,17 +152,18 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     ),
                   ],
                 )
-                    : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: jobData!.job!.jobHelpers?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    return JobHelperWidget(
-                      helper: jobData!.job!.jobHelpers?[index] ?? JobHelper(),
-                    );
-                  },
-                )
+                    :const Center(child: Text("Please Add Helper For Starting\n the Job"))
                     : const Center(child: Text("Please Add Helper For Starting\n the Job")),
               ],
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: jobData!.job!.jobHelpers?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return JobHelperWidget(
+                    helper: jobData!.job!.jobHelpers?[index] ?? JobHelper(),
+                  );
+                },
+              )
             ],
           ),
         ),

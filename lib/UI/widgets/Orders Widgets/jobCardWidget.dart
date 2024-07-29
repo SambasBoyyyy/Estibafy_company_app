@@ -213,6 +213,8 @@ class JobCardWidget extends StatelessWidget {
                             style: simpleTextStyle.copyWith(
                               fontSize: 11,
                             ),
+                            maxLines: 1, // Limit to one line
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
@@ -252,7 +254,7 @@ class JobCardWidget extends StatelessWidget {
                                   color: AppColors.greenColor),
                               child: Text(
                                 "Completed",
-                                style: simpleTextStyle.copyWith(color: AppColors.whiteColor),
+                                style: normalTextStyle.copyWith(color: AppColors.whiteColor),
                               ),
                             )
                 ],

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../components/components.dart';
+import '../../controllers/earning_controller.dart';
 import '../../models/earning_model.dart';
 import '../../models/utils/constant.dart';
 import '../../theme/colors.dart';
@@ -10,21 +11,20 @@ class MockBookingController extends GetxController {
   DateTime? date = DateTime.now();
 
   Future<EarningModel> getMyEarnings() async {
-    // Add dummy data here
+    List<JobData> joblist = await fetchEarn();
+
+    int totalJobs = joblist.length;
+    double totalAmount = joblist.fold(0.0, (sum, job) => sum + job.totalAmount);
+
     return EarningModel(
       statusCode: 200,
       data: Data(
         releasesPaymentEarning: PaymentEarning(
-          totalJobsDone: 10,
-          totalAmount: 500,
-          totalNumberOfDaysWorked: 5,
+          totalJobsDone: totalJobs,
+          totalAmount: double.parse(totalAmount.toStringAsFixed(2)),
+          totalNumberOfDaysWorked: joblist.length, // Adjust this as needed
         ),
-        unreleasedPaymentEarning: PaymentEarning(
-          totalJobsDone: 2,
-          totalAmount: 100,
-          totalNumberOfDaysWorked: 2,
-        ),
-        detailJobsStatus: [],
+        detailJobsStatus: joblist,
       ),
     );
   }
@@ -70,63 +70,63 @@ class _MyEarningsState extends State<MyEarnings> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: sixthColor),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Icon(
-                                        // FontAwesomeIcons.solidCalendarAlt,
-                                        Icons.calendar_month,
-                                        color: fourthColor,
-                                        size: 20,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 11,
-                                    ),
-                                    // Text(DateFormat.yMMMMEEEEd().format(bookingController.date!)),
-                                    const SizedBox(
-                                      width: 15,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        _date(context);
-                                      },
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: const Icon(
-                                        Icons.arrow_drop_down_outlined,
-                                        size: 30,
-                                        color: primaryColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                  child: VerticalDivider(
-                                    color: sixthColor,
-                                  ),
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      // FontAwesomeIcons.cog,
-                                      Icons.content_paste_go,
-                                      size: 20,
-                                    )),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   height: 50,
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(15),
+                          //     border: Border.all(color: sixthColor),
+                          //   ),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Row(
+                          //         mainAxisAlignment: MainAxisAlignment.center,
+                          //         children: [
+                          //           const Padding(
+                          //             padding: EdgeInsets.all(10.0),
+                          //             child: Icon(
+                          //               // FontAwesomeIcons.solidCalendarAlt,
+                          //               Icons.calendar_month,
+                          //               color: fourthColor,
+                          //               size: 20,
+                          //             ),
+                          //           ),
+                          //           const SizedBox(
+                          //             width: 11,
+                          //           ),
+                          //           // Text(DateFormat.yMMMMEEEEd().format(bookingController.date!)),
+                          //           const SizedBox(
+                          //             width: 15,
+                          //           ),
+                          //           // InkWell(
+                          //           //   onTap: () {
+                          //           //     _date(context);
+                          //           //   },
+                          //           //   borderRadius: BorderRadius.circular(20),
+                          //           //   child: const Icon(
+                          //           //     Icons.arrow_drop_down_outlined,
+                          //           //     size: 30,
+                          //           //     color: primaryColor,
+                          //           //   ),
+                          //           // ),
+                          //         ],
+                          //       ),
+                          //       const SizedBox(
+                          //         height: 20,
+                          //         child: VerticalDivider(
+                          //           color: sixthColor,
+                          //         ),
+                          //       ),
+                          //       IconButton(
+                          //           onPressed: () {},
+                          //           icon: const Icon(
+                          //             // FontAwesomeIcons.cog,
+                          //             Icons.content_paste_go,
+                          //             size: 20,
+                          //           )),
+                          //     ],
+                          //   ),
+                          // ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -148,26 +148,13 @@ class _MyEarningsState extends State<MyEarnings> {
                                         children: const [
                                           SizedBox(
                                               height: 60,
-                                              width: 90,
-                                              child: RotatedBox(
-                                                  quarterTurns: 1,
-                                                  child: Icon(
-                                                    // FontAwesomeIcons.solidMoneyBillAlt,
-                                                    Icons.calendar_month,
-                                                    color: fifthColor,
-                                                    size: 32,
-                                                  ))),
-                                          Positioned(
-                                            bottom: 5,
-                                            left: 0,
-                                            right: 0,
-                                            child: Icon(
-                                              // FontAwesomeIcons.handHolding,
-                                              Icons.calendar_month,
-                                              color: fourthColor,
-                                              size: 32,
-                                            ),
-                                          ),
+                                              width: 70,
+                                              child: Icon(
+                                                // FontAwesomeIcons.solidMoneyBillAlt,
+                                                Icons.calendar_month,
+                                                color: fifthColor,
+                                                size: 32,
+                                              )),
                                         ],
                                       ),
                                       Column(
@@ -177,7 +164,7 @@ class _MyEarningsState extends State<MyEarnings> {
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: Text(
-                                              'Jobs',
+                                              'Total Jobs',
                                               style: textStyle3,
                                             ),
                                           ),
@@ -205,7 +192,7 @@ class _MyEarningsState extends State<MyEarnings> {
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text(
-                                          'Tips',
+                                          'Earnings',
                                           style: textStyle3,
                                         ),
                                       ),
@@ -229,17 +216,17 @@ class _MyEarningsState extends State<MyEarnings> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: middleBoxes(
-                                    'Total Jobs', //FontAwesomeIcons.box,
-                                    Icons.check_box,
-                                    '${model.data!.releasesPaymentEarning!.totalJobsDone.toString()}'),
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Expanded(
+                          //       child: middleBoxes(
+                          //           'Total Jobs', //FontAwesomeIcons.box,
+                          //           Icons.check_box,
+                          //           '${model.data!.releasesPaymentEarning!.totalJobsDone.toString()}'),
+                          //     ),
+                          //   ],
+                          // ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -354,34 +341,34 @@ class _MyEarningsState extends State<MyEarnings> {
     );
   }
 
-  Future<void> _date(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        builder: (context, child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: const ColorScheme.light(
-                primary: primaryColor, // header background color
-                onPrimary: secondaryColor, // header text color
-                onSurface: primaryColor, // body text color
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  foregroundColor: primaryColor, // button text color
-                ),
-              ),
-            ),
-            child: child!,
-          );
-        },
-        initialDate: bookingController.date!,
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2101));
-    if (picked != null) {
-      setState(() {
-        bookingController.date = picked;
-      });
-    }
-  }
+  // Future<void> _date(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //       context: context,
+  //       builder: (context, child) {
+  //         return Theme(
+  //           data: Theme.of(context).copyWith(
+  //             colorScheme: const ColorScheme.light(
+  //               primary: primaryColor, // header background color
+  //               onPrimary: secondaryColor, // header text color
+  //               onSurface: primaryColor, // body text color
+  //             ),
+  //             textButtonTheme: TextButtonThemeData(
+  //               style: TextButton.styleFrom(
+  //                 foregroundColor: primaryColor, // button text color
+  //               ),
+  //             ),
+  //           ),
+  //           child: child!,
+  //         );
+  //       },
+  //       initialDate: bookingController.date!,
+  //       initialDatePickerMode: DatePickerMode.day,
+  //       firstDate: DateTime(2015),
+  //       lastDate: DateTime(2101));
+  //   if (picked != null) {
+  //     setState(() {
+  //       bookingController.date = picked;
+  //     });
+  //   }
+  // }
 }

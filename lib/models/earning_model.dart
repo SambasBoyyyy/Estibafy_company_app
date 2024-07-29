@@ -4,6 +4,83 @@
 
 import 'dart:convert';
 
+
+class Job {
+  final int id;
+  final String name;
+  final String address;
+  final String packageType;
+  final String startTime;
+  final String endTime;
+  final String jobStatus;
+
+  Job({
+    required this.id,
+    required this.name,
+    required this.address,
+    required this.packageType,
+    required this.startTime,
+    required this.endTime,
+    required this.jobStatus,
+  });
+
+  factory Job.fromJson(Map<String, dynamic> json) {
+    return Job(
+      id: json['id'],
+      name: json['name'],
+      address: json['address'],
+      packageType: json['package_type'],
+      startTime: json['start_time'],
+      endTime: json['end_time'],
+      jobStatus: json['job_status'],
+    );
+  }
+}
+
+class JobData {
+  final int id;
+  final int companyId;
+  final int checkoutId;
+  final double totalAmount;
+  final double subTotal;
+  final double taxAmount;
+  final String releaseStatus;
+  final String createdAt;
+  final String updatedAt;
+  final Job job;
+
+  JobData({
+    required this.id,
+    required this.companyId,
+    required this.checkoutId,
+    required this.totalAmount,
+    required this.subTotal,
+    required this.taxAmount,
+    required this.releaseStatus,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.job,
+  });
+
+  factory JobData.fromJson(Map<String, dynamic> json) {
+    return JobData(
+      id: json['id'],
+      companyId: json['company_id'],
+      checkoutId: json['checkout_id'],
+      totalAmount: json['total_amount'].toDouble(),
+      subTotal: json['sub_total'].toDouble(),
+      taxAmount: json['tax_amount'].toDouble(),
+      releaseStatus: json['release_status'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      job: Job.fromJson(json['job']),
+    );
+  }
+}
+
+
+
+
 class EarningModel {
   EarningModel({
     this.statusCode,
@@ -64,7 +141,7 @@ class PaymentEarning {
   });
 
   final int? totalJobsDone;
-  final int? totalAmount;
+  final double? totalAmount;
   final int? totalNumberOfDaysWorked;
 
   factory PaymentEarning.fromJson(String str) => PaymentEarning.fromMap(json.decode(str));
