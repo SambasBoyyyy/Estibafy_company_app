@@ -63,6 +63,7 @@ class AuthController extends GetxController {
         print(value.data['status']);
         if (value.data['status'] == 200) {
           authLocal = await SharedPreferences.getInstance();
+          authLocal.setDouble('helperRate', value.data['data']['user']['company']['helper_rate']== null? 0.0:value.data['data']['user']['company']['helper_rate'].double());
           try {
             print(value.data);
             userProfile.value = UserModel.fromJson(value.data);

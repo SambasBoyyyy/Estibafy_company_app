@@ -43,6 +43,29 @@ class HelperController extends GetxController {
     });
   }
 
+  void SetHelperRate({double? percentage}) {
+
+    var body = {
+      "helper_rate": percentage
+    };
+
+    API().postRequest(endPoint: '/company/helperrate', body: body, dataType: "form-data").then((value) {
+      if (value != null) {
+        if (value.statusCode == 200) {
+          var result = value.data;
+          if (result["message"] == "One of helper Already added for this job") {
+            ShowMessage().showErrorMessage("A helper has already been added for this job.");
+          } else {
+            ShowMessage().showMessage(result["message"]);
+          }
+        } else {
+          // Handle other status codes if needed
+          ShowMessage().showMessage("An unexpected error occurred: ${value.statusCode}");
+        }
+      }
+    });
+  }
+
   void addHelper(Helper helper) {
     assignHelpers.add(helper);
     refresh();

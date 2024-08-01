@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../theme/colors.dart';
+import '../../controllers/helper_controller.dart';
 
 class HelperRate extends StatefulWidget {
   const HelperRate({super.key});
@@ -15,6 +17,8 @@ class _HelperRateState extends State<HelperRate> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _percentageController = TextEditingController();
   double? _currentPercentage;
+
+  final HelperController _helperController = Get.put(HelperController());
 
   @override
   void initState() {
@@ -38,6 +42,7 @@ class _HelperRateState extends State<HelperRate> {
     if (_formKey.currentState!.validate()) {
       final percentage = double.parse(_percentageController.text);
       _savePercentage(percentage).then((_) {
+        _helperController.SetHelperRate(percentage: percentage); // Call SetHelperRate from HelperController
         setState(() {
           _currentPercentage = percentage;
         });
@@ -105,7 +110,7 @@ class _HelperRateState extends State<HelperRate> {
                   child: const Text("Set",
                       style: TextStyle(color: AppColors.backgroundColor)),
                 ),
-                ),
+              ),
             ],
           ),
         ),
