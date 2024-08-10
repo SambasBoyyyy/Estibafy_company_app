@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:295482206606:ios:f4040166d37857f94cdcdf</string>
+	<key>DATABASE_URL</key>
+	<string>https://estibafy-company-app-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
