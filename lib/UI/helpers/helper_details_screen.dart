@@ -99,10 +99,20 @@ class HelperDetailsScreen extends StatelessWidget {
                                 fontSize: 12,
                                 color: Colors.grey[700]
                             ),),
-                            Text(helper.streetAddress ?? "--", style: const TextStyle(
-                                fontSize: 13,
-                                color: Colors.black
-                            ),),
+                            Row(
+                              children: [
+                                Text('${helper.city}, ' ?? "--", style: const TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.black
+                                ),
+                                ),
+                                Text(helper.country ?? "--", style: const TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.black
+                                ),
+                                ),
+                              ],
+                            ),
                           ],
                         )
                       ],

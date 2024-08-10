@@ -59,11 +59,11 @@ class AuthController extends GetxController {
     };
 
     API().postRequest(endPoint: "/login", body: body, dataType: "json").then((value) async {
-      if (value != null) {
+      if (value != null && value.data['data']['user']['company']!= null) {
         print(value.data['status']);
         if (value.data['status'] == 200) {
           authLocal = await SharedPreferences.getInstance();
-          authLocal.setDouble('helperRate', value.data['data']['user']['company']['helper_rate']== null? 0.0:value.data['data']['user']['company']['helper_rate'].double());
+          authLocal.setDouble('helperRate', value.data['data']['user']['company']['helper_rate']== null? 0.0:value.data['data']['user']['company']['helper_rate'].toDouble());
           try {
             print(value.data);
             userProfile.value = UserModel.fromJson(value.data);
@@ -79,6 +79,9 @@ class AuthController extends GetxController {
         } else {
           ShowMessage().showErrorMessage("${value.data['message']}");
         }
+      }
+      else{
+        ShowMessage().showErrorMessage("Something went wrong");
       }
     });
   }

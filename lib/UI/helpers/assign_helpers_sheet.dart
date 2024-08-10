@@ -2,6 +2,7 @@ import 'package:estibafy_company_app/UI/widgets/backButton.dart';
 import 'package:estibafy_company_app/controllers/helper_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/components.dart';
 import '../../models/company_helpers.dart';
@@ -20,12 +21,22 @@ class AssignHelperScreen extends StatefulWidget {
 
 class _AssignHelperScreenState extends State<AssignHelperScreen> {
   final helperController = Get.put(HelperController());
-
+  double? _currentPercentage;
   @override
   void initState() {
     helperController.assignHelpers.clear();
+    _loadCurrentPercentage();
     super.initState();
   }
+
+  Future<void> _loadCurrentPercentage() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _currentPercentage = prefs.getDouble('helperRate');
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,11 +68,15 @@ class _AssignHelperScreenState extends State<AssignHelperScreen> {
                     Spacer(),
                     InkWell(
                         onTap: (){
-                          if(helperController.assignHelpers.isNotEmpty){
-                            helperController.assignHelper(jobId: widget.jobId);
-                          }
-                          else{
-                            ShowMessage().showMessage("Please Assign Helpers");
+                          if( _currentPercentage != 0.0){
+                            if(helperController.assignHelpers.isNotEmpty){
+                               helperController.assignHelper(jobId: widget.jobId);
+                            }
+                            else{
+                              ShowMessage().showErrorMessage("Please Assign Helpers");
+                            }
+                          }else{
+                            ShowMessage().showErrorMessage("Please set Helper Rate");
                           }
                         },
                         child: Icon(Icons.done_outline)),
